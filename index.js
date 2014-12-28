@@ -15,29 +15,17 @@ var X = 0,
 function GUIScene (options) {
 	options = _.merge({
 		renderer: undefined,
-		camera: new THREE.OrthographicCamera(-1, 1, -1, 1, -100, 100),
-		autoRender: true
+		camera: new THREE.OrthographicCamera(-1, 1, -1, 1, -100, 100)
 	}, options || {})
 	_.assign(this, options);
-	if(this.autoRender && !this.renderer) throw new Error('You must provide a renderer if you want to autorender the GUI');
+	if(!this.renderer) throw new Error('You need a renderer for GUI to work.');
 	THREE.Scene.call(this);
 
-	var _this = this;
-
-	if(this.autoRender) {
-		// awesome hack to wrap the renderers render function
-		// so normal renders always include the GUI on them even though the gui isn't part of the main scene
-		var oldRender = this.renderer.render.bind(this.renderer);
-		this.renderer.autoClear = false;
-		this.renderer.clear();
-		this.renderer.render = function(scene, camera, renderTarget, forceClear) {
-			oldRender(scene, camera, renderTarget, forceClear);
-			oldRender(_this, _this.camera, renderTarget, false);
-		}
-	}
 	this.resize = this.resize.bind(this);
 	onResizeSignal.add(this.resize);
 	ResizeManager.bump();
+	
+	this.render = this.render.bind(this);
 }
 
 GUIScene.prototype = Object.create(THREE.Scene.prototype);
@@ -56,9 +44,18 @@ GUIScene.prototype.resize = function(width, height) {
 	this.camera.updateProjectionMatrix();
 }
 
+var backupAutoClear;
+GUIScene.prototype.render = function() {
+	backupAutoClear = this.renderer.autoClear;
+	this.renderer.autoClear = false;
+	this.renderer.clear(false, true, true);
+	this.renderer.render(this, this.camera, undefined, false);
+	this.renderer.autoClear = backupAutoClear;
+}
+
 GUIScene.prototype.positionRelative = function(x, y, object) {
-		object.position.x = this.camera.left + this.camera.width * x;
-		object.position.y = this.camera.top + this.camera.height * y;
+	object.position.x = this.camera.left + this.camera.width * x;
+	object.position.y = this.camera.top + this.camera.height * y;
 }
 
 module.exports = GUIScene;

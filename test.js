@@ -40,6 +40,10 @@ var onReady = function() {
 	}));
 	guiScene.add(cursor);
 
+	view.renderManager.onExitFrame.add(function() {
+		guiScene.render();
+	})
+
 	view.renderManager.onEnterFrame.add(function() {
 		fpsController.update();
 	})
