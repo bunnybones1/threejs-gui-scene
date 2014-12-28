@@ -51,8 +51,14 @@ GUIScene.prototype.resize = function(width, height) {
 		this.camera.bottom = this.camera.left * aspect;
 		this.camera.top = this.camera.right * aspect;
 	}
+	this.camera.width = this.camera.right - this.camera.left;
+	this.camera.height = this.camera.bottom - this.camera.top;
 	this.camera.updateProjectionMatrix();
 }
 
+GUIScene.prototype.positionRelative = function(x, y, object) {
+		object.position.x = this.camera.left + this.camera.width * x;
+		object.position.y = this.camera.top + this.camera.height * y;
+}
 
 module.exports = GUIScene;
