@@ -1,6 +1,6 @@
 {
   "name": "threejs-gui-scene",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A scene specifically for GUI rendering. Orthographic camera and convenience functions included.",
   "main": "index.js",
   "license": "MIT",
