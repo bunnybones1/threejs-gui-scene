@@ -15,7 +15,7 @@ var X = 0,
 function GUIScene (options) {
 	options = _.merge({
 		renderer: undefined,
-		camera: new THREE.OrthographicCamera(-10, 10, 10, -10, -1000, 1000),
+		camera: new THREE.OrthographicCamera(-1, 1, -1, 1, -100, 100),
 		autoRender: true
 	}, options || {})
 	_.assign(this, options);

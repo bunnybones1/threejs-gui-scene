@@ -33,7 +33,8 @@ var onReady = function() {
 		renderer: view.renderer
 	});
 
-	var cursor = new THREE.Mesh(sphereGeometry, new THREE.MeshBasicMaterial({
+	var cursorGeometry = new THREE.SphereGeometry(.1);
+	var cursor = new THREE.Mesh(cursorGeometry, new THREE.MeshBasicMaterial({
 		wireframe: true,
 		color: 0xffffff
 	}));
