@@ -1,8 +1,9 @@
+var three = require('three');
 var ResizeManager = require('input-resize');
 var onResizeSignal = ResizeManager.onResize;
 var _ = require('lodash');
 
-var origin = new THREE.Vector3();
+var origin = new three.Vector3();
 var adjustWidth = false;
 var NONE = 0;
 var FIT = 1;
@@ -15,11 +16,11 @@ var X = 0,
 function GUIScene (options) {
 	options = _.merge({
 		renderer: undefined,
-		camera: new THREE.OrthographicCamera(-1, 1, -1, 1, -100, 100)
+		camera: new three.OrthographicCamera(-1, 1, -1, 1, -100, 100)
 	}, options || {})
 	_.assign(this, options);
 	if(!this.renderer) throw new Error('You need a renderer for GUI to work.');
-	THREE.Scene.call(this);
+	three.Scene.call(this);
 
 	this.resize = this.resize.bind(this);
 	onResizeSignal.add(this.resize);
@@ -28,7 +29,7 @@ function GUIScene (options) {
 	this.render = this.render.bind(this);
 }
 
-GUIScene.prototype = Object.create(THREE.Scene.prototype);
+GUIScene.prototype = Object.create(three.Scene.prototype);
 
 GUIScene.prototype.resize = function(width, height) {
 	var aspect = adjustWidth ? width/height : height/width;

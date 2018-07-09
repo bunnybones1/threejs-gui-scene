@@ -1,6 +1,6 @@
 {
   "name": "threejs-gui-scene",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A scene specifically for GUI rendering. Orthographic camera and convenience functions included.",
   "main": "index.js",
   "license": "MIT",
@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "input-resize": "^2.1.0",
-    "lodash": "^2.4.1"
+    "lodash": "^2.4.1",
+    "three": "^0.94.0"
   },
   "devDependencies": {
-    "loadandrunscripts": "^1.0.0",
-    "threejs-camera-controller-first-person-desktop": "^1.3.0",
-    "threejs-managed-view": "^2.4.0"
+    "threejs-camera-controller-first-person-desktop": "^5.0.1",
+    "threejs-managed-view": "^7.0.0"
   },
   "scripts": {
-    "test": "beefy test.js --live --open"
+    "test": "budo test.js --live --open"
   },
   "keywords": [
     "threejs",
